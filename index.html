@@ -235,7 +235,7 @@
     }
     $(function(){
         $('#message_form').submit(function(){
-          socketio.emit('message', (">"+$('#mojio').val()));
+          socketio.emit('message', ($('#mojio').val()));
           $('#moji').val('');
           return false;
         });
