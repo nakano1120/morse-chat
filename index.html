@@ -37,10 +37,11 @@
     <h1>モールストーク</h1>
   </div>
   <script>
+    var socketio = io();
     var i=0;
     var l=0;
-    var music = new Audio('naga.mp3');
-    var mu = new Audio('yakyu.mp3');
+    var music = new Audio("./naga.mp3");
+    var mu = new Audio('./yakyu.mp3');
     var ji=document.getElementById("moji")
     var mo=document.getElementById("morse")
     var intval
