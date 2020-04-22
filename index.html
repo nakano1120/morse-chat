@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>モールスチャット</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+    html,body{
+        height:100%;
+    }
+    #wrap{
+        width: 100%;
+        position: relative;
+        height:auto !important; /*IE6対策*/
+        height: 100%; /*IE6対策*/
+        min-height: 100%;
+    }
+    #contents{
+        padding-bottom:140px; /*フッターの高さと同じ*/
+    }
+    #footer{
+        height:140px;
+        width:100%;
+        position:absolute;
+        bottom:0;
+        background-color:azure;
+    }
+    
+    </style>
+</head>
+<body>
+  <ul style="list-style-type: none;" id="messages"></ul>
+  <div id="footer">
+    <form id="message_form" action="#">
+      <div id="text"><span id="moji"></span><span id="morse"></span></div><button>Send</button>
+    </form>
+    <h1>モールストーク</h1>
+  </div>
+  <script>
+    var i=0;
+    var l=0;
+    var music = new Audio('naga.mp3');
+    var mu = new Audio('yakyu.mp3');
+    var ji=document.getElementById("moji")
+    var mo=document.getElementById("morse")
+    var intval
+    var outval
+    function but(ls){
+        clearInterval(outval);
+        if(l>100){
+            check()
+            ji.innerHTML+="　"
+        }else if(l>50){
+            check()
+        }
+        l=0
+        if(ls==0){
+            mo.innerHTML+="・"
+            mu.play();
+        }else{
+            mo.innerHTML+="ー"
+            music.play();
+        }
+        outval=setInterval(function(){
+            l+=1
+        }, 10);
+    }
+    document.onkeydown = function(e) {
+        var keyCode = false;
+        clearInterval(outval);
+        if(l>80){
+            check()
+            ji.innerHTML+="　"
+        }else if(l>30){
+            check()
+        }
+        l=0
+        if (e) event = e;
+        keyCode = event.keyCode;
+        i=0
+        if(keyCode==32){
+            music.play();
+            inval=setInterval(function(){
+                i+=1
+            }, 10);
+        }
+        if(keyCode==13){
+            check()
+        }
+    };
+    document.onkeyup = function(e) {
+        var keyCode = false;
+
+        if (e) event = e;
+        keyCode = event.keyCode;
+
+        if(keyCode==32){
+            music.pause();
+            music.currentTime = 0;
+            clearInterval(inval);
+            if(i>20){
+                mo.innerHTML+="ー"
+            }else{
+                mo.innerHTML+="・"
+            }
+            outval=setInterval(function(){
+                l+=1
+                if(l==50){
+                  check()
+                }
+            }, 10);
+            i=0
+        }
+    };
+    function check(){
+        if(mo.innerHTML=="・ー"){
+            ji.innerHTML+="A"
+        }
+        if(mo.innerHTML=="ー・・・"){
+            ji.innerHTML+="B"
+        }
+        if(mo.innerHTML=="ー・ー・"){
+            ji.innerHTML+="C"
+        }
+        if(mo.innerHTML=="ー・・"){
+            ji.innerHTML+="D"
+        }
+        if(mo.innerHTML=="・"){
+            ji.innerHTML+="E"
+        }
+        if(mo.innerHTML=="・・ー・"){
+            ji.innerHTML+="F"
+        }
+        if(mo.innerHTML=="ーー・"){
+            ji.innerHTML+="G"
+        }
+        if(mo.innerHTML=="・・・・"){
+            ji.innerHTML+="H"
+        }
+        if(mo.innerHTML=="・・"){
+            ji.innerHTML+="I"
+        }
+        if(mo.innerHTML=="・ーーー"){
+            ji.innerHTML+="J"
+        }
+        if(mo.innerHTML=="ー・ー"){
+            ji.innerHTML+="K"
+        }
+        if(mo.innerHTML=="・ー・・"){
+            ji.innerHTML+="L"
+        }
+        if(mo.innerHTML=="ーー"){
+            ji.innerHTML+="M"
+        }
+        if(mo.innerHTML=="ー・"){
+            ji.innerHTML+="N"
+        }
+        if(mo.innerHTML=="ーーー"){
+            ji.innerHTML+="O"
+        }
+        if(mo.innerHTML=="・ーー・"){
+            ji.innerHTML+="P"
+        }
+        if(mo.innerHTML=="ーー・ー"){
+            ji.innerHTML+="Q"
+        }
+        if(mo.innerHTML=="・ー・"){
+            ji.innerHTML+="R"
+        }
+        if(mo.innerHTML=="・・・"){
+            ji.innerHTML+="S"
+        }
+        if(mo.innerHTML=="ー"){
+            ji.innerHTML+="T"
+        }
+        if(mo.innerHTML=="・・ー"){
+            ji.innerHTML+="U"
+        }
+        if(mo.innerHTML=="・・・ー"){
+            ji.innerHTML+="V"
+        }
+        if(mo.innerHTML=="・ーー"){
+            ji.innerHTML+="W"
+        }
+        if(mo.innerHTML=="ー・・ー"){
+            ji.innerHTML+="X"
+        }
+        if(mo.innerHTML=="ー・ーー"){
+            ji.innerHTML+="Y"
+        }
+        if(mo.innerHTML=="ーー・・"){
+            ji.innerHTML+="Z"
+        }
+        if(mo.innerHTML=="・ーーーー"){
+            ji.innerHTML+="1"
+        }
+        if(mo.innerHTML=="・・ーーー"){
+            ji.innerHTML+="2"
+        }
+        if(mo.innerHTML=="・・・ーー"){
+            ji.innerHTML+="3"
+        }
+        if(mo.innerHTML=="・・・・ー"){
+            ji.innerHTML+="4"
+        }
+        if(mo.innerHTML=="・・・・・"){
+            ji.innerHTML+="5"
+        }
+        if(mo.innerHTML=="ー・・・・"){
+            ji.innerHTML+="6"
+        }
+        if(mo.innerHTML=="ーー・・・"){
+            ji.innerHTML+="7"
+        }
+        if(mo.innerHTML=="ーーー・・"){
+            ji.innerHTML+="8"
+        }
+        if(mo.innerHTML=="ーーーー・"){
+            ji.innerHTML+="9"
+        }
+        if(mo.innerHTML=="ーーーーー"){
+            ji.innerHTML+="0"
+        }
+        if(mo.innerHTML=="ーー・ー・"){
+            ji.innerHTML+="/"
+        }
+        if(mo.innerHTML=="ー・・・・ー"){
+            ji.innerHTML+="-"
+        }
+        if(mo.innerHTML=="・・ーー・・"){
+            ji.innerHTML+="?"
+        }
+        mo.innerHTML=""
+    }
+    $(function(){
+        $('#message_form').submit(function(){
+          socketio.emit('message', (">"+$('#mojio').val()));
+          $('#moji').val('');
+          return false;
+        });
+        socketio.on('message',function(msg){
+          $('#messages').append($('<li>').text(msg));
+        });
+    });
+    </script>
+</body>
+</html>
